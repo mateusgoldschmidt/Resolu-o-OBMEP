@@ -9,45 +9,29 @@
 <style>
 body { margin:0; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:#eef3fb; overflow:hidden; }
 #ui-container { position:absolute; top:16px; left:16px; width:400px; background:rgba(255,255,255,0.97); padding:20px; border-radius:16px; box-shadow:0 6px 20px rgba(0,0,0,0.15); z-index:100; max-height:94vh; overflow-y:auto; }
-h1 { font-size:1.25rem; color:#1a73e8; margin:0 0 4px 0; display: flex; align-items: center; gap: 8px;}
+h1 { font-size:1.2rem; color:#1a73e8; margin:0 0 4px 0; display:flex; align-items:center; gap:8px; }
 h1 span.emoji { font-size:1.4rem; }
-#subtitle { font-size:0.9rem; color:#5f6368; margin-bottom:15px; font-weight: 500;}
+#subtitle { font-size:0.9rem; color:#5f6368; margin-bottom:15px; font-weight:500; }
 p, li { font-size:0.95rem; line-height:1.55; color:#2b2f33; }
-
-/* Barra de progresso e contador */
-#progress-container { width: 100%; background: #e0e0e0; border-radius: 4px; height: 6px; margin-bottom: 15px; overflow: hidden; }
-#progress-bar { height: 100%; background: #1a73e8; width: 0%; transition: width 0.3s ease; }
-#step-counter { font-size: 0.85rem; font-weight: bold; color: #1a73e8; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px; }
-
-/* Painel de informações */
-#info-panel { background: #f8f9fa; padding: 15px; border-radius: 12px; border: 1px solid #dadce0; }
-#step-title { font-weight:800; color:#0b57d0; font-size:1.1rem; margin-bottom:10px; }
-
-/* Controles de Navegação */
+#progress-container { width:100%; background:#e0e0e0; border-radius:4px; height:6px; margin-bottom:15px; overflow:hidden; }
+#progress-bar { height:100%; background:#1a73e8; width:0%; transition:width 0.3s ease; }
+#step-counter { font-size:0.85rem; font-weight:bold; color:#1a73e8; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:5px; }
+#info-panel { background:#f8f9fa; padding:15px; border-radius:12px; border:1px solid #dadce0; }
+#step-title { font-weight:800; color:#0b57d0; font-size:1.08rem; margin-bottom:10px; }
 .nav-controls { display:flex; justify-content:space-between; margin-top:15px; gap:10px; }
-.nav-btn { flex:1; padding:12px; font-size:0.95rem; border:none; border-radius:10px; background:#34a853; color:white; font-weight:700; cursor:pointer; transition: background 0.2s; }
+.nav-btn { flex:1; padding:12px; font-size:0.95rem; border:none; border-radius:10px; background:#34a853; color:white; font-weight:700; cursor:pointer; transition:background 0.2s; }
 .nav-btn:hover:not(:disabled) { background:#2d9047; }
-.nav-btn:disabled { background:#cfd8dc; color: #9aa0a6; cursor:not-allowed; }
-
-/* Badges e destaques */
-.badge { display:inline-block; padding:3px 10px; border-radius:20px; font-weight:700; font-size:0.8rem; color:white; margin:2px 4px 2px 0; }
-.badge-blue { background:#4285f4; }
-.badge-red { background:#ea4335; }
-.badge-green { background:#34a853; }
-.fun-box { background:#fff8e1; border-left:5px solid #fbbc04; padding:12px; border-radius:8px; margin-top:12px; font-size:0.9rem; font-weight: 500;}
-
-/* Legendas */
-.color-legend { margin-top:15px; font-size:0.85rem; display: flex; flex-direction: column; gap: 4px;}
+.nav-btn:disabled { background:#cfd8dc; color:#9aa0a6; cursor:not-allowed; }
+.fun-box { background:#fff8e1; border-left:5px solid #fbbc04; padding:12px; border-radius:8px; margin-top:12px; font-size:0.92rem; font-weight:500; }
+.color-legend { margin-top:15px; font-size:0.85rem; display:flex; flex-direction:column; gap:4px; }
 .color-legend span { display:inline-flex; align-items:center; }
 .dot { width:12px; height:12px; border-radius:50%; display:inline-block; margin-right:6px; }
-
 .legend { margin-top:15px; display:grid; grid-template-columns:repeat(2,1fr); gap:10px; border-top:1px solid #dadce0; padding-top:15px; }
-.legend-item { display:flex; align-items:center; font-size:0.85rem; color:#3c4043; font-weight: 500;}
-
-.opt-card { display:inline-block; width:100%; margin:8px 0; padding:10px; border-radius:10px; background:#fce8e6; border:2px solid #ea4335; font-size:0.85rem; box-sizing: border-box; }
+.legend-item { display:flex; align-items:center; font-size:0.85rem; color:#3c4043; font-weight:500; }
+.opt-card { display:inline-block; width:100%; margin:8px 0; padding:10px; border-radius:10px; background:#fce8e6; border:2px solid #ea4335; font-size:0.85rem; box-sizing:border-box; }
 .opt-card.valid { background:#e6f4ea; border-color:#34a853; }
 .opt-card.valid .opt-title { color:#188038; }
-.opt-title { font-weight:800; color: #d93025; }
+.opt-title { font-weight:800; color:#d93025; }
 .alternative-figure { margin:0 0 10px; padding:9px; border-radius:9px; background:#fff; border:1px solid #dadce0; box-shadow:0 1px 3px rgba(0,0,0,.08); }
 .alt-figure-title { display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; font-weight:800; color:#3c4043; }
 .alt-badge { display:inline-flex; align-items:center; justify-content:center; width:25px; height:25px; border-radius:50%; background:#ea4335; color:#fff; font-size:.9rem; }
@@ -64,22 +48,19 @@ p, li { font-size:0.95rem; line-height:1.55; color:#2b2f33; }
 .face-token.face-neutral { background:#f1f3f4; border:1px solid #bdc1c6; }
 .face-token canvas { width:23px; height:23px; display:block; border:1px solid rgba(0,0,0,.22); border-radius:3px; background:#fff; }
 .alt-note { margin-top:6px; color:#5f6368; text-align:center; font-size:.72rem; font-weight:600; }
+.face-sequence { display:flex; align-items:center; justify-content:center; gap:6px; margin:8px 0; background:#fff; padding:8px 12px; border-radius:8px; border:1px solid #dadce0; font-weight:bold; color:#3c4043; }
+.inline-icon { vertical-align:middle; border:1px solid #bdc3c7; border-radius:4px; background:white; padding:2px; }
+#canvas-container { width:100vw; height:100vh; }
 @media (max-width:700px) {
     #ui-container { width:calc(100vw - 24px); left:12px; top:12px; max-height:91vh; padding:15px; }
     .legend { grid-template-columns:1fr; }
 }
-
-/* NOVO: Estilos para a sequência de faces inline */
-.face-sequence { display:flex; align-items:center; justify-content:center; gap:6px; margin:8px 0; background:#fff; padding:8px 12px; border-radius:8px; border:1px solid #dadce0; font-weight:bold; color:#3c4043; }
-.inline-icon { vertical-align: middle; border: 1px solid #bdc3c7; border-radius: 4px; background: white; padding: 2px;}
-
-#canvas-container { width:100vw; height:100vh; }
 </style>
 </head>
 <body>
 <div id="ui-container">
-    <h1><span class="emoji">🕵️‍♂️</span> Detetive dos Cubos</h1>
-    <div id="subtitle">OBMEP 2026 - Questão 20 (Resolução Oficial)</div>
+    <h1><span class="emoji">📘</span> Resolução comentada</h1>
+    <div id="subtitle">OBMEP 2026 - Questão 20</div>
 
     <div id="progress-container">
         <div id="progress-bar"></div>
@@ -92,13 +73,13 @@ p, li { font-size:0.95rem; line-height:1.55; color:#2b2f33; }
     </div>
 
     <div class="nav-controls">
-        <button class="nav-btn" id="prevBtn" onclick="changeStep(-1)" style="background: #ea4335;">⬅ Anterior</button>
+        <button class="nav-btn" id="prevBtn" onclick="changeStep(-1)" style="background:#ea4335;">⬅ Anterior</button>
         <button class="nav-btn" id="nextBtn" onclick="changeStep(1)">Próximo ➡</button>
     </div>
 
     <div class="color-legend">
         <span><span class="dot" style="background:#4285f4"></span> Face da nossa análise</span>
-        <span><span class="dot" style="background:#ea4335"></span> Vizinho (Descartado como oposto)</span>
+        <span><span class="dot" style="background:#ea4335"></span> Vizinho descartado como oposto</span>
         <span><span class="dot" style="background:#34a853"></span> Par oposto confirmado</span>
     </div>
 
@@ -107,15 +88,14 @@ p, li { font-size:0.95rem; line-height:1.55; color:#2b2f33; }
         <div class="legend-item"><canvas id="icon-star4" width="20" height="20"></canvas>&nbsp;Estrela 4 pontas</div>
         <div class="legend-item"><canvas id="icon-circle" width="20" height="20"></canvas>&nbsp;Círculo</div>
         <div class="legend-item"><canvas id="icon-octagon" width="20" height="20"></canvas>&nbsp;Octógono</div>
-        <div class="legend-item"><canvas id="icon-square" width="20" height="20"></canvas>&nbsp;Quad. em pé (Losango)</div>
-        <div class="legend-item"><canvas id="icon-diamond" width="20" height="20"></canvas>&nbsp;Quadrado deitado</div>
+        <div class="legend-item"><canvas id="icon-square" width="20" height="20"></canvas>&nbsp;Quadrado deitado</div>
+        <div class="legend-item"><canvas id="icon-diamond" width="20" height="20"></canvas>&nbsp;Quadrado em pé (losango)</div>
     </div>
 </div>
 <div id="canvas-container"></div>
 
 <script>
 const FACES = { STAR8:0, STAR4:1, CIRCLE:2, OCTAGON:3, SQUARE:4, DIAMOND:5 };
-
 function drawFace(ctx, type, size) {
     ctx.fillStyle = 'white';
     ctx.fillRect(0, 0, size, size);
@@ -123,10 +103,8 @@ function drawFace(ctx, type, size) {
     ctx.lineWidth = size * 0.05;
     ctx.strokeRect(0, 0, size, size);
     ctx.fillStyle = 'black';
-    
     const center = size / 2;
     const radius = size * 0.35;
-    
     switch(type) {
         case FACES.STAR8:
             ctx.beginPath();
@@ -142,56 +120,19 @@ function drawFace(ctx, type, size) {
             ctx.beginPath();
             for(let i=0; i<8; i++) { let angle = (Math.PI * 2 * i) / 8 + Math.PI/8; ctx.lineTo(center + radius * 0.9 * Math.cos(angle), center + radius * 0.9 * Math.sin(angle)); }
             ctx.closePath(); ctx.fill(); break;
-        case FACES.SQUARE: // Quadrado alinhado (Quadrado deitado)
+        case FACES.SQUARE:
             ctx.fillRect(center - radius*0.7, center - radius*0.7, radius*1.4, radius*1.4); break;
-        case FACES.DIAMOND: // Quadrado rotacionado 45º (Quadrado em pé / Losango)
+        case FACES.DIAMOND:
             ctx.save(); ctx.translate(center, center); ctx.rotate(Math.PI / 4); ctx.fillRect(-radius*0.7, -radius*0.7, radius*1.4, radius*1.4); ctx.restore(); break;
     }
 }
-
-const faceLabels = {
-    STAR8: 'Estrela de 8 pontas',
-    STAR4: 'Estrela de 4 pontas',
-    CIRCLE: 'Círculo',
-    OCTAGON: 'Octógono',
-    SQUARE: 'Quadrado deitado',
-    DIAMOND: 'Quadrado em pé (losango)'
-};
-
-function faceCanvas(faceName, size = 54) {
-    return `<canvas class="alt-face-canvas" data-face="${faceName}" width="${size}" height="${size}"></canvas>`;
-}
-
-function faceToken(faceName, color = 'neutral', size = 23) {
-    const label = faceLabels[faceName] || faceName;
-    return `<span class="face-token face-${color}" role="img" aria-label="${label}" title="${label}">${faceCanvas(faceName, size)}</span>`;
-}
-
-function alternativeFigure(letter, top, left, right, valid = false, note = '') {
-    return `<div class="alternative-figure${valid ? ' valid' : ''}">
-        <div class="alt-figure-title"><span>Alternativa</span><span class="alt-badge">${letter}</span></div>
-        <div class="alt-diagram">
-            <div class="alt-face top">${faceCanvas(top)}<span class="alt-face-label">Face superior</span></div>
-            <div class="alt-face">${faceCanvas(left)}<span class="alt-face-label">Inferior esquerda</span></div>
-            <div class="alt-face">${faceCanvas(right)}<span class="alt-face-label">Inferior direita</span></div>
-        </div>
-        ${note ? `<div class="alt-note">${note}</div>` : ''}
-    </div>`;
-}
-
+const faceLabels = { STAR8:'Estrela de 8 pontas', STAR4:'Estrela de 4 pontas', CIRCLE:'Círculo', OCTAGON:'Octógono', SQUARE:'Quadrado deitado', DIAMOND:'Quadrado em pé (losango)' };
+function faceCanvas(faceName, size = 54) { return `<canvas class="alt-face-canvas" data-face="${faceName}" width="${size}" height="${size}"></canvas>`; }
+function faceToken(faceName, color = 'neutral', size = 23) { const label = faceLabels[faceName] || faceName; return `<span class="face-token face-${color}" role="img" aria-label="${label}" title="${label}">${faceCanvas(faceName, size)}</span>`; }
+function alternativeFigure(letter, top, left, right, valid = false, note = '') { return `<div class="alternative-figure${valid ? ' valid' : ''}"><div class="alt-figure-title"><span>Alternativa</span><span class="alt-badge">${letter}</span></div><div class="alt-diagram"><div class="alt-face top">${faceCanvas(top)}<span class="alt-face-label">Face superior</span></div><div class="alt-face">${faceCanvas(left)}<span class="alt-face-label">Inferior esquerda</span></div><div class="alt-face">${faceCanvas(right)}<span class="alt-face-label">Inferior direita</span></div></div>${note ? `<div class="alt-note">${note}</div>` : ''}</div>`; }
 const textureSize = 256;
-const textures = Object.values(FACES).map(type => {
-    const canvas = document.createElement('canvas');
-    canvas.width = textureSize; canvas.height = textureSize;
-    drawFace(canvas.getContext('2d'), type, textureSize);
-    return new THREE.CanvasTexture(canvas);
-});
-
-Object.keys(FACES).forEach(key => {
-    const canvas = document.getElementById('icon-' + key.toLowerCase());
-    if(canvas) drawFace(canvas.getContext('2d'), FACES[key], 20);
-});
-
+const textures = Object.values(FACES).map(type => { const canvas = document.createElement('canvas'); canvas.width = textureSize; canvas.height = textureSize; drawFace(canvas.getContext('2d'), type, textureSize); return new THREE.CanvasTexture(canvas); });
+Object.keys(FACES).forEach(key => { const canvas = document.getElementById('icon-' + key.toLowerCase()); if(canvas) drawFace(canvas.getContext('2d'), FACES[key], 20); });
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0xeef3fb);
 const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -201,73 +142,28 @@ document.getElementById('canvas-container').appendChild(renderer.domElement);
 const controls = new THREE.OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
 controls.target.set(0, 0.5, 0);
-
 scene.add(new THREE.AmbientLight(0xffffff, 0.8));
 const directionalLight = new THREE.DirectionalLight(0xffffff, 0.4);
 directionalLight.position.set(5, 10, 7);
 scene.add(directionalLight);
-
-function makeMaterials(posX, negX, posY, negY, posZ, negZ) {
-    return [posX, negX, posY, negY, posZ, negZ].map(f => new THREE.MeshLambertMaterial({ map: textures[f] }));
-}
-
-function createCube(x, y, z, mats) {
-    const geometry = new THREE.BoxGeometry(1, 1, 1);
-    const cube = new THREE.Mesh(geometry, mats);
-    cube.position.set(x, y, z);
-    scene.add(cube);
-    const edges = new THREE.EdgesGeometry(geometry);
-    const line = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0x000000, linewidth: 2 }));
-    cube.add(line);
-    return cube;
-}
-
+function makeMaterials(posX, negX, posY, negY, posZ, negZ) { return [posX, negX, posY, negY, posZ, negZ].map(f => new THREE.MeshLambertMaterial({ map: textures[f] })); }
+function createCube(x, y, z, mats) { const geometry = new THREE.BoxGeometry(1, 1, 1); const cube = new THREE.Mesh(geometry, mats); cube.position.set(x, y, z); scene.add(cube); const edges = new THREE.EdgesGeometry(geometry); const line = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0x000000, linewidth: 2 })); cube.add(line); return cube; }
 const cubes = [];
-
-const matTop = makeMaterials(FACES.SQUARE, FACES.DIAMOND, FACES.STAR8, FACES.STAR4, FACES.CIRCLE, FACES.OCTAGON);
-cubes.push(createCube(0, 1, 0, matTop));
-
-const matFL = makeMaterials(FACES.SQUARE, FACES.DIAMOND, FACES.OCTAGON, FACES.CIRCLE, FACES.STAR8, FACES.STAR4);
-cubes.push(createCube(-0.5, 0, 0.5, matFL));
-
-const matFR = makeMaterials(FACES.OCTAGON, FACES.CIRCLE, FACES.STAR4, FACES.STAR8, FACES.DIAMOND, FACES.SQUARE);
-cubes.push(createCube(0.5, 0, 0.5, matFR));
-
-const matBR = makeMaterials(FACES.STAR8, FACES.STAR4, FACES.DIAMOND, FACES.SQUARE, FACES.CIRCLE, FACES.OCTAGON);
-cubes.push(createCube(0.5, 0, -0.5, matBR));
-
-const matBL = makeMaterials(FACES.CIRCLE, FACES.STAR4, FACES.OCTAGON, FACES.DIAMOND, FACES.SQUARE, FACES.STAR8);
-cubes.push(createCube(-0.5, 0, -0.5, matBL));
-
+const matTop = makeMaterials(FACES.SQUARE, FACES.DIAMOND, FACES.STAR8, FACES.STAR4, FACES.CIRCLE, FACES.OCTAGON); cubes.push(createCube(0, 1, 0, matTop));
+const matFL = makeMaterials(FACES.SQUARE, FACES.DIAMOND, FACES.OCTAGON, FACES.CIRCLE, FACES.STAR8, FACES.STAR4); cubes.push(createCube(-0.5, 0, 0.5, matFL));
+const matFR = makeMaterials(FACES.OCTAGON, FACES.CIRCLE, FACES.STAR4, FACES.STAR8, FACES.DIAMOND, FACES.SQUARE); cubes.push(createCube(0.5, 0, 0.5, matFR));
+const matBR = makeMaterials(FACES.STAR8, FACES.STAR4, FACES.DIAMOND, FACES.SQUARE, FACES.CIRCLE, FACES.OCTAGON); cubes.push(createCube(0.5, 0, -0.5, matBR));
+const matBL = makeMaterials(FACES.CIRCLE, FACES.STAR4, FACES.OCTAGON, FACES.DIAMOND, FACES.SQUARE, FACES.STAR8); cubes.push(createCube(-0.5, 0, -0.5, matBL));
 const SIDES = { RIGHT: 0, LEFT: 1, TOP: 2, BOTTOM: 3, FRONT: 4, BACK: 5 };
-const faceTransform = {
-    0: {pos:[0.51,0,0], rot:[0, Math.PI/2, 0]},
-    1: {pos:[-0.51,0,0], rot:[0,-Math.PI/2, 0]},
-    2: {pos:[0,0.51,0], rot:[-Math.PI/2,0,0]},
-    3: {pos:[0,-0.51,0], rot:[Math.PI/2,0,0]},
-    4: {pos:[0,0,0.51], rot:[0,0,0]},
-    5: {pos:[0,0,-0.51], rot:[0,Math.PI,0]}
-};
-
+const faceTransform = { 0: {pos:[0.51,0,0], rot:[0, Math.PI/2, 0]}, 1: {pos:[-0.51,0,0], rot:[0,-Math.PI/2, 0]}, 2: {pos:[0,0.51,0], rot:[-Math.PI/2,0,0]}, 3: {pos:[0,-0.51,0], rot:[Math.PI/2,0,0]}, 4: {pos:[0,0,0.51], rot:[0,0,0]}, 5: {pos:[0,0,-0.51], rot:[0,Math.PI,0]} };
 let activeHighlights = [];
-function addHighlight(cubeIdx, side, colorHex){
-    const t = faceTransform[side];
-    const geo = new THREE.PlaneGeometry(1.04, 1.04);
-    const mat = new THREE.MeshBasicMaterial({color:colorHex, transparent:true, opacity:0.55, side:THREE.DoubleSide, depthTest:false});
-    const mesh = new THREE.Mesh(geo, mat);
-    mesh.position.set(...t.pos);
-    mesh.rotation.set(...t.rot);
-    cubes[cubeIdx].add(mesh);
-    activeHighlights.push(mesh);
-}
+function addHighlight(cubeIdx, side, colorHex){ const t = faceTransform[side]; const geo = new THREE.PlaneGeometry(1.04, 1.04); const mat = new THREE.MeshBasicMaterial({color:colorHex, transparent:true, opacity:0.55, side:THREE.DoubleSide, depthTest:false}); const mesh = new THREE.Mesh(geo, mat); mesh.position.set(...t.pos); mesh.rotation.set(...t.rot); cubes[cubeIdx].add(mesh); activeHighlights.push(mesh); }
 function clearHighlights(){ activeHighlights.forEach(m=>m.parent.remove(m)); activeHighlights=[]; }
-
 let currentStep = 0;
-const totalSteps = 9;
+const totalSteps = 11;
 const isometricCam = [4.4, 3.4, 6.0];
-
 const stepData = [
-{ title:'Enunciado', cam:isometricCam, orbit:false, html:`<p><strong>20.</strong> Élio juntou cinco cubinhos idênticos sobre uma mesa, como mostra a figura, e tirou uma foto. Qual das imagens pode ser a da foto que Élio tirou?</p><p>O objetivo é identificar qual alternativa apresenta uma vista possível da montagem.</p><div class="fun-box"><strong>Estratégia:</strong> vamos determinar os pares de faces opostas e comparar com as alternativas.</div>`, highlights:[] },
+{ title:'Enunciado da questão', cam:isometricCam, orbit:false, html:`<p><strong>20.</strong> Élio juntou cinco cubinhos idênticos sobre uma mesa, como mostra a figura, e tirou uma foto. Qual das imagens pode ser a da foto que Élio tirou?</p><p>O objetivo é identificar qual alternativa representa uma vista possível da montagem.</p><div class="fun-box"><strong>Estratégia:</strong> vamos determinar os pares de faces opostas e comparar com as alternativas.</div>`, highlights:[] },
 { title:'1. Observando o cubo de cima', cam:isometricCam, orbit:false, html:`<p>No cubinho superior, a face com a estrela de 8 pontas está voltada para cima.</p><p>Também vemos, ao lado dela, a face circular e a face com o quadrado deitado.</p><div class="fun-box">Essas duas faces não podem ser opostas à estrela de 8 pontas.</div>`, highlights:[[0, SIDES.TOP, 0x4285f4], [0, SIDES.FRONT, 0xea4335], [0, SIDES.RIGHT, 0xea4335]] },
 { title:'2. Observando o cubo da esquerda', cam:isometricCam, orbit:false, html:`<p>No cubinho da esquerda, a estrela de 8 pontas aparece em uma face lateral e o octógono aparece no topo.</p><div class="fun-box">Logo, o octógono também não é oposto à estrela de 8 pontas.</div>`, highlights:[[1, SIDES.FRONT, 0x4285f4], [1, SIDES.TOP, 0xea4335]] },
 { title:'3. Observando o cubo da direita', cam:isometricCam, orbit:false, html:`<p>No cubinho da direita, a estrela de 8 pontas aparece em uma face lateral e o quadrado em pé aparece no topo.</p><div class="fun-box">Portanto, o quadrado em pé também não é oposto à estrela de 8 pontas.</div>`, highlights:[[3, SIDES.RIGHT, 0x4285f4], [3, SIDES.TOP, 0xea4335]] },
@@ -275,57 +171,15 @@ const stepData = [
 { title:'5. Os outros pares', cam:isometricCam, orbit:false, html:`<p>Continuando a análise das faces visíveis, obtemos os outros pares opostos.</p><div class="fun-box">Os pares opostos são: estrela de 8 pontas e estrela de 4 pontas; círculo e octógono; quadrado deitado e quadrado em pé.</div>`, highlights:[[0, SIDES.FRONT, 0x34a853], [0, SIDES.RIGHT, 0x34a853]] },
 { title:'6. Analisando a alternativa C', cam:isometricCam, orbit:false, html:`${alternativeFigure('C', 'STAR4', 'CIRCLE', 'SQUARE', false, 'Alternativa C')}<p>A alternativa C não pode ser a fotografia.</p><div class="opt-card"><strong>Justificativa:</strong> a estrela de 4 pontas é oposta à estrela de 8 pontas e não pode aparecer no cubinho de cima.</div>`, highlights:[] },
 { title:'7. Analisando a alternativa B', cam:isometricCam, orbit:false, html:`${alternativeFigure('B', 'OCTAGON', 'SQUARE', 'STAR4', false, 'Alternativa B')}<p>A alternativa B também não corresponde à fotografia.</p><div class="opt-card"><strong>Justificativa:</strong> a disposição das faces não é compatível com os pares opostos já determinados.</div>`, highlights:[] },
-{ title:'8. A alternativa correta', cam:[-6.0, 0.5, 0], orbit:true, html:`${alternativeFigure('D', 'DIAMOND', 'CIRCLE', 'SQUARE', true, 'Alternativa D')}<p>A alternativa D é a única compatível com a montagem apresentada.</p><div class="fun-box"><strong>Resposta:</strong> alternativa <strong>D</strong>.</div><p>Agora a câmera pode ser movimentada livremente para conferência.</p>`, highlights:[[0, SIDES.LEFT, 0x4285f4], [4, SIDES.LEFT, 0x4285f4], [1, SIDES.LEFT, 0x4285f4]] }
+{ title:'8. Analisando a alternativa A', cam:isometricCam, orbit:false, html:`${alternativeFigure('A', 'OCTAGON', 'STAR4', 'STAR8', false, 'Alternativa A')}<p>A alternativa A também não pode ser a foto tirada.</p><div class="opt-card"><strong>Justificativa:</strong> ela contradiz os pares opostos já obtidos na análise.</div>`, highlights:[] },
+{ title:'9. Analisando a alternativa E', cam:isometricCam, orbit:false, html:`${alternativeFigure('E', 'DIAMOND', 'CIRCLE', 'SQUARE', false, 'Alternativa E')}<p>A alternativa E não pode ser a fotografia.</p><div class="opt-card"><strong>Justificativa:</strong> ela não respeita a relação entre as faces opostas dos cubinhos.</div>`, highlights:[] },
+{ title:'10. A fotografia correta', cam:[-6.0, 0.5, 0], orbit:true, html:`${alternativeFigure('D', 'DIAMOND', 'STAR4', 'DIAMOND', true, 'Alternativa D')}<p>Finalmente, a imagem do item <strong>D</strong> pode ser a foto tirada.</p><p>A configuração é compatível com os pares opostos já determinados.</p><div class="fun-box"><strong>Resposta:</strong> alternativa <strong>D</strong>.</div><p>Agora a câmera pode ser movimentada livremente para conferência.</p>`, highlights:[[0, SIDES.LEFT, 0x4285f4], [4, SIDES.LEFT, 0x4285f4], [1, SIDES.LEFT, 0x4285f4]] }
 ];
-
-function setStep(n){
-    currentStep = Math.max(0, Math.min(totalSteps - 1, n));
-    clearHighlights();
-    const d = stepData[currentStep];
-    document.getElementById('step-counter').innerText = `Passo ${currentStep + 1} de ${totalSteps}`;
-    document.getElementById('step-title').innerHTML = d.title;
-    document.getElementById('step-desc').innerHTML = d.html;
-    document.querySelectorAll('canvas[data-face]').forEach(canvas => {
-        const faceName = canvas.getAttribute('data-face');
-        if(FACES[faceName] !== undefined) drawFace(canvas.getContext('2d'), FACES[faceName], canvas.width);
-    });
-    document.getElementById('progress-bar').style.width = ((currentStep / (totalSteps - 1)) * 100) + '%';
-    d.highlights.forEach(h => addHighlight(h[0], h[1], h[2]));
-    document.getElementById('prevBtn').disabled = currentStep === 0;
-    document.getElementById('nextBtn').disabled = currentStep === totalSteps - 1;
-    controls.enableRotate = d.orbit;
-    tweenCamera(...d.cam);
-}
+function setStep(n){ currentStep = Math.max(0, Math.min(totalSteps - 1, n)); clearHighlights(); const d = stepData[currentStep]; document.getElementById('step-counter').innerText = `Passo ${currentStep + 1} de ${totalSteps}`; document.getElementById('step-title').innerHTML = d.title; document.getElementById('step-desc').innerHTML = d.html; document.querySelectorAll('canvas[data-face]').forEach(canvas => { const faceName = canvas.getAttribute('data-face'); if(FACES[faceName] !== undefined) drawFace(canvas.getContext('2d'), FACES[faceName], canvas.width); }); document.getElementById('progress-bar').style.width = ((currentStep / (totalSteps - 1)) * 100) + '%'; d.highlights.forEach(h => addHighlight(h[0], h[1], h[2])); document.getElementById('prevBtn').disabled = currentStep === 0; document.getElementById('nextBtn').disabled = currentStep === totalSteps - 1; controls.enableRotate = d.orbit; tweenCamera(...d.cam); }
 function changeStep(delta){ setStep(currentStep + delta); }
-function tweenCamera(x, y, z){
-    const startPos = camera.position.clone();
-    const endPos = new THREE.Vector3(x, y, z);
-    let progress = 0, duration = 60;
-    function animateMove(){
-        progress++;
-        const t = progress / duration;
-        const ease = 1 - Math.pow(1 - t, 3);
-        camera.position.lerpVectors(startPos, endPos, ease);
-        controls.update();
-        if(progress < duration) requestAnimationFrame(animateMove);
-    }
-    animateMove();
-}
-let pulseT = 0;
-function animate(){
-    requestAnimationFrame(animate);
-    pulseT += 0.05;
-    const pulse = 0.45 + Math.sin(pulseT) * 0.15;
-    activeHighlights.forEach(m => m.material.opacity = pulse);
-    controls.update();
-    renderer.render(scene, camera);
-}
-animate();
-window.addEventListener('resize', () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-});
+function tweenCamera(x, y, z){ const startPos = camera.position.clone(); const endPos = new THREE.Vector3(x, y, z); let progress = 0, duration = 60; function animateMove(){ progress++; const t = progress / duration; const ease = 1 - Math.pow(1 - t, 3); camera.position.lerpVectors(startPos, endPos, ease); controls.update(); if(progress < duration) requestAnimationFrame(animateMove); } animateMove(); }
+let pulseT = 0; function animate(){ requestAnimationFrame(animate); pulseT += 0.05; const pulse = 0.45 + Math.sin(pulseT) * 0.15; activeHighlights.forEach(m => m.material.opacity = pulse); controls.update(); renderer.render(scene, camera); } animate();
+window.addEventListener('resize', () => { camera.aspect = window.innerWidth / window.innerHeight; camera.updateProjectionMatrix(); renderer.setSize(window.innerWidth, window.innerHeight); });
 setStep(0);
 </script>
 </body>
