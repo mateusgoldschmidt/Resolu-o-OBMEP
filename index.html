@@ -9,25 +9,41 @@
 <style>
 body { margin:0; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:#eef3fb; overflow:hidden; }
 #ui-container { position:absolute; top:16px; left:16px; width:400px; background:rgba(255,255,255,0.97); padding:20px; border-radius:16px; box-shadow:0 6px 20px rgba(0,0,0,0.15); z-index:100; max-height:94vh; overflow-y:auto; }
-h1 { font-size:1.25rem; color:#1a73e8; margin:0 0 4px 0; display:flex; align-items:center; gap:8px;}
+h1 { font-size:1.25rem; color:#1a73e8; margin:0 0 4px 0; display: flex; align-items: center; gap: 8px;}
 h1 span.emoji { font-size:1.4rem; }
 #subtitle { font-size:0.9rem; color:#5f6368; margin-bottom:15px; font-weight: 500;}
 p, li { font-size:0.95rem; line-height:1.55; color:#2b2f33; }
+
+/* Barra de progresso e contador */
 #progress-container { width: 100%; background: #e0e0e0; border-radius: 4px; height: 6px; margin-bottom: 15px; overflow: hidden; }
 #progress-bar { height: 100%; background: #1a73e8; width: 0%; transition: width 0.3s ease; }
 #step-counter { font-size: 0.85rem; font-weight: bold; color: #1a73e8; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px; }
+
+/* Painel de informações */
 #info-panel { background: #f8f9fa; padding: 15px; border-radius: 12px; border: 1px solid #dadce0; }
 #step-title { font-weight:800; color:#0b57d0; font-size:1.1rem; margin-bottom:10px; }
+
+/* Controles de Navegação */
 .nav-controls { display:flex; justify-content:space-between; margin-top:15px; gap:10px; }
 .nav-btn { flex:1; padding:12px; font-size:0.95rem; border:none; border-radius:10px; background:#34a853; color:white; font-weight:700; cursor:pointer; transition: background 0.2s; }
 .nav-btn:hover:not(:disabled) { background:#2d9047; }
 .nav-btn:disabled { background:#cfd8dc; color: #9aa0a6; cursor:not-allowed; }
+
+/* Badges e destaques */
+.badge { display:inline-block; padding:3px 10px; border-radius:20px; font-weight:700; font-size:0.8rem; color:white; margin:2px 4px 2px 0; }
+.badge-blue { background:#4285f4; }
+.badge-red { background:#ea4335; }
+.badge-green { background:#34a853; }
 .fun-box { background:#fff8e1; border-left:5px solid #fbbc04; padding:12px; border-radius:8px; margin-top:12px; font-size:0.9rem; font-weight: 500;}
+
+/* Legendas */
 .color-legend { margin-top:15px; font-size:0.85rem; display: flex; flex-direction: column; gap: 4px;}
 .color-legend span { display:inline-flex; align-items:center; }
 .dot { width:12px; height:12px; border-radius:50%; display:inline-block; margin-right:6px; }
+
 .legend { margin-top:15px; display:grid; grid-template-columns:repeat(2,1fr); gap:10px; border-top:1px solid #dadce0; padding-top:15px; }
 .legend-item { display:flex; align-items:center; font-size:0.85rem; color:#3c4043; font-weight: 500;}
+
 .opt-card { display:inline-block; width:100%; margin:8px 0; padding:10px; border-radius:10px; background:#fce8e6; border:2px solid #ea4335; font-size:0.85rem; box-sizing: border-box; }
 .opt-card.valid { background:#e6f4ea; border-color:#34a853; }
 .opt-card.valid .opt-title { color:#188038; }
@@ -48,44 +64,91 @@ p, li { font-size:0.95rem; line-height:1.55; color:#2b2f33; }
 .face-token.face-neutral { background:#f1f3f4; border:1px solid #bdc1c6; }
 .face-token canvas { width:23px; height:23px; display:block; border:1px solid rgba(0,0,0,.22); border-radius:3px; background:#fff; }
 .alt-note { margin-top:6px; color:#5f6368; text-align:center; font-size:.72rem; font-weight:600; }
-.face-sequence { display:flex; align-items:center; justify-content:center; gap:6px; margin:8px 0; background:#fff; padding:8px 12px; border-radius:8px; border:1px solid #dadce0; font-weight:bold; color:#3c4043; box-shadow:0 2px 4px rgba(0,0,0,0.05); }
-.inline-icon { vertical-align: middle; border: 1px solid #bdc3c7; border-radius: 4px; background: white; padding: 2px; }
+@media (max-width:700px) {
+    #ui-container { width:calc(100vw - 24px); left:12px; top:12px; max-height:91vh; padding:15px; }
+    .legend { grid-template-columns:1fr; }
+}
+
+/* NOVO: Estilos para a sequência de faces inline */
+.face-sequence { display:flex; align-items:center; justify-content:center; gap:6px; margin:8px 0; background:#fff; padding:8px 12px; border-radius:8px; border:1px solid #dadce0; font-weight:bold; color:#3c4043; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+.inline-icon { vertical-align: middle; border: 1px solid #bdc3c7; border-radius: 4px; background: white; padding: 2px;}
+
 #canvas-container { width:100vw; height:100vh; }
-@media (max-width:700px) { #ui-container { width:calc(100vw - 24px); left:12px; top:12px; max-height:91vh; padding:15px; } .legend { grid-template-columns:1fr; } }
 </style>
 </head>
 <body>
 <div id="ui-container">
     <h1><span class="emoji">📘</span> Resolução comentada</h1>
     <div id="subtitle">OBMEP 2026 - Questão 20</div>
-    <div id="progress-container"><div id="progress-bar"></div></div>
+
+    <div id="progress-container">
+        <div id="progress-bar"></div>
+    </div>
+
     <div id="info-panel">
         <div id="step-counter">Passo 1 de 11</div>
         <div id="step-title"></div>
         <div id="step-desc"></div>
     </div>
+
     <div class="nav-controls">
-        <button class="nav-btn" id="prevBtn" onclick="changeStep(-1)" style="background:#ea4335;">⬅ Anterior</button>
+        <button class="nav-btn" id="prevBtn" onclick="changeStep(-1)" style="background: #ea4335;">⬅ Anterior</button>
         <button class="nav-btn" id="nextBtn" onclick="changeStep(1)">Próximo ➡</button>
     </div>
+
     <div class="color-legend">
         <span><span class="dot" style="background:#4285f4"></span> Face da nossa análise</span>
-        <span><span class="dot" style="background:#ea4335"></span> Vizinho descartado como oposto</span>
+        <span><span class="dot" style="background:#ea4335"></span> Vizinho (Descartado como oposto)</span>
         <span><span class="dot" style="background:#34a853"></span> Par oposto confirmado</span>
     </div>
+
     <div class="legend">
         <div class="legend-item"><canvas id="icon-star8" width="20" height="20"></canvas>&nbsp;Estrela 8 pontas</div>
         <div class="legend-item"><canvas id="icon-star4" width="20" height="20"></canvas>&nbsp;Estrela 4 pontas</div>
         <div class="legend-item"><canvas id="icon-circle" width="20" height="20"></canvas>&nbsp;Círculo</div>
         <div class="legend-item"><canvas id="icon-octagon" width="20" height="20"></canvas>&nbsp;Octógono</div>
-        <div class="legend-item"><canvas id="icon-square" width="20" height="20"></canvas>&nbsp;Quadrado deitado</div>
-        <div class="legend-item"><canvas id="icon-diamond" width="20" height="20"></canvas>&nbsp;Quadrado em pé (losango)</div>
+        <div class="legend-item"><canvas id="icon-square" width="20" height="20"></canvas>&nbsp;Quad. em pé (Losango)</div>
+        <div class="legend-item"><canvas id="icon-diamond" width="20" height="20"></canvas>&nbsp;Quadrado deitado</div>
     </div>
 </div>
 <div id="canvas-container"></div>
+
 <script>
 const FACES = { STAR8:0, STAR4:1, CIRCLE:2, OCTAGON:3, SQUARE:4, DIAMOND:5 };
-function drawFace(ctx, type, size) { ctx.fillStyle = 'white'; ctx.fillRect(0, 0, size, size); ctx.strokeStyle = '#111'; ctx.lineWidth = size * 0.05; ctx.strokeRect(0, 0, size, size); ctx.fillStyle = 'black'; const center = size / 2; const radius = size * 0.35; switch(type) { case FACES.STAR8: ctx.beginPath(); for(let i=0; i<16; i++) { let r = i % 2 === 0 ? radius : radius * 0.4; let angle = (Math.PI * 2 * i) / 16; ctx.lineTo(center + r * Math.cos(angle), center + r * Math.sin(angle)); } ctx.closePath(); ctx.fill(); break; case FACES.STAR4: ctx.beginPath(); for(let i=0; i<8; i++) { let r = i % 2 === 0 ? radius : radius * 0.3; let angle = (Math.PI * 2 * i) / 8; ctx.lineTo(center + r * Math.cos(angle), center + r * Math.sin(angle)); } ctx.closePath(); ctx.fill(); break; case FACES.CIRCLE: ctx.beginPath(); ctx.arc(center, center, radius * 0.8, 0, Math.PI * 2); ctx.fill(); break; case FACES.OCTAGON: ctx.beginPath(); for(let i=0; i<8; i++) { let angle = (Math.PI * 2 * i) / 8 + Math.PI/8; ctx.lineTo(center + radius * 0.9 * Math.cos(angle), center + radius * 0.9 * Math.sin(angle)); } ctx.closePath(); ctx.fill(); break; case FACES.SQUARE: ctx.fillRect(center - radius*0.7, center - radius*0.7, radius*1.4, radius*1.4); break; case FACES.DIAMOND: ctx.save(); ctx.translate(center, center); ctx.rotate(Math.PI / 4); ctx.fillRect(-radius*0.7, -radius*0.7, radius*1.4, radius*1.4); ctx.restore(); break; } }
+
+function drawFace(ctx, type, size) {
+    ctx.fillStyle = 'white';
+    ctx.fillRect(0, 0, size, size);
+    ctx.strokeStyle = '#111';
+    ctx.lineWidth = size * 0.05;
+    ctx.strokeRect(0, 0, size, size);
+    ctx.fillStyle = 'black';
+    
+    const center = size / 2;
+    const radius = size * 0.35;
+    
+    switch(type) {
+        case FACES.STAR8:
+            ctx.beginPath();
+            for(let i=0; i<16; i++) { let r = i % 2 === 0 ? radius : radius * 0.4; let angle = (Math.PI * 2 * i) / 16; ctx.lineTo(center + r * Math.cos(angle), center + r * Math.sin(angle)); }
+            ctx.closePath(); ctx.fill(); break;
+        case FACES.STAR4:
+            ctx.beginPath();
+            for(let i=0; i<8; i++) { let r = i % 2 === 0 ? radius : radius * 0.3; let angle = (Math.PI * 2 * i) / 8; ctx.lineTo(center + r * Math.cos(angle), center + r * Math.sin(angle)); }
+            ctx.closePath(); ctx.fill(); break;
+        case FACES.CIRCLE:
+            ctx.beginPath(); ctx.arc(center, center, radius * 0.8, 0, Math.PI * 2); ctx.fill(); break;
+        case FACES.OCTAGON:
+            ctx.beginPath();
+            for(let i=0; i<8; i++) { let angle = (Math.PI * 2 * i) / 8 + Math.PI/8; ctx.lineTo(center + radius * 0.9 * Math.cos(angle), center + radius * 0.9 * Math.sin(angle)); }
+            ctx.closePath(); ctx.fill(); break;
+        case FACES.SQUARE:
+            ctx.fillRect(center - radius*0.7, center - radius*0.7, radius*1.4, radius*1.4); break;
+        case FACES.DIAMOND:
+            ctx.save(); ctx.translate(center, center); ctx.rotate(Math.PI / 4); ctx.fillRect(-radius*0.7, -radius*0.7, radius*1.4, radius*1.4); ctx.restore(); break;
+    }
+}
+
 const faceLabels = { STAR8:'Estrela de 8 pontas', STAR4:'Estrela de 4 pontas', CIRCLE:'Círculo', OCTAGON:'Octógono', SQUARE:'Quadrado deitado', DIAMOND:'Quadrado em pé (losango)' };
 function faceCanvas(faceName, size = 54) { return `<canvas class="alt-face-canvas" data-face="${faceName}" width="${size}" height="${size}"></canvas>`; }
 function faceToken(faceName, color = 'neutral', size = 23) { const label = faceLabels[faceName] || faceName; return `<span class="face-token face-${color}" role="img" aria-label="${label}" title="${label}">${faceCanvas(faceName, size)}</span>`; }
@@ -109,11 +172,11 @@ function addHighlight(cubeIdx, side, colorHex){ const t = faceTransform[side]; c
 function clearHighlights(){ activeHighlights.forEach(m=>m.parent.remove(m)); activeHighlights=[]; }
 let currentStep = 0; const totalSteps = 11; const isometricCam = [4.4, 3.4, 6.0];
 const stepData = [
-{ title:'Enunciado da questão', cam:isometricCam, orbit:false, html:`<p><strong>20.</strong> Élio juntou cinco cubinhos idênticos sobre uma mesa, como mostra a figura, e tirou uma foto. Qual das imagens pode ser a da foto que Élio tirou?</p><div class="fun-box"><strong>Estratégia:</strong> vamos determinar os pares de faces opostas e comparar com as alternativas.</div>`, highlights:[] },
-{ title:'1. Observando o cubo de cima', cam:isometricCam, orbit:false, html:`<p>No cubinho superior, a face com a estrela de 8 pontas está voltada para cima.</p><p>Também vemos, ao lado dela, a face circular e a face com o quadrado deitado.</p><div class="fun-box">Essas duas faces não podem ser opostas à estrela de 8 pontas.</div>`, highlights:[[0, SIDES.TOP, 0x4285f4], [0, SIDES.FRONT, 0xea4335], [0, SIDES.RIGHT, 0xea4335]] },
-{ title:'2. Observando o cubo da esquerda', cam:isometricCam, orbit:false, html:`<p>No cubinho da esquerda, a estrela de 8 pontas aparece em uma face lateral e o octógono aparece no topo.</p><div class="fun-box">Logo, o octógono também não é oposto à estrela de 8 pontas.</div>`, highlights:[[1, SIDES.FRONT, 0x4285f4], [1, SIDES.TOP, 0xea4335]] },
-{ title:'3. Observando o cubo da direita', cam:isometricCam, orbit:false, html:`<p>No cubinho da direita, a estrela de 8 pontas aparece em uma face lateral e o quadrado em pé aparece no topo.</p><div class="fun-box">Portanto, o quadrado em pé também não é oposto à estrela de 8 pontas.</div>`, highlights:[[3, SIDES.RIGHT, 0x4285f4], [3, SIDES.TOP, 0xea4335]] },
-{ title:'4. Primeiro par oposto', cam:isometricCam, orbit:false, html:`<p>Com as observações anteriores, concluímos que as faces opostas à estrela de 8 pontas não são a face circular, nem o quadrado deitado, nem o octógono, nem o quadrado em pé.</p><div class="fun-box">Assim, a face oposta à estrela de 8 pontas é a estrela de 4 pontas.</div>`, highlights:[[0, SIDES.TOP, 0x34a853], [1, SIDES.FRONT, 0x34a853], [3, SIDES.RIGHT, 0x34a853]] },
+{ title:'Enunciado da questão', cam:isometricCam, orbit:false, html:`<p><strong>20.</strong> ${faceToken('STAR8', 'neutral')} Élio juntou cinco cubinhos idênticos sobre uma mesa, como mostra a figura, e tirou uma foto. Qual das imagens pode ser a da foto que Élio tirou?</p><div class="fun-box"><strong>Estratégia:</strong> vamos determinar os pares de faces opostas e comparar com as alternativas.</div>`, highlights:[] },
+{ title:'1. Observando o cubo de cima', cam:isometricCam, orbit:false, html:`<p>No cubinho superior, a face com a ${faceToken('STAR8', 'blue')} está voltada para cima.</p><p>Também vemos, ao lado dela, a ${faceToken('CIRCLE', 'red')} e a ${faceToken('SQUARE', 'red')}.</p><div class="fun-box">Essas duas faces não podem ser opostas à ${faceToken('STAR8', 'blue')}.</div>`, highlights:[[0, SIDES.TOP, 0x4285f4], [0, SIDES.FRONT, 0xea4335], [0, SIDES.RIGHT, 0xea4335]] },
+{ title:'2. Observando o cubo da esquerda', cam:isometricCam, orbit:false, html:`<p>No cubinho da esquerda, a ${faceToken('STAR8', 'blue')} aparece em uma face lateral e o ${faceToken('OCTAGON', 'red')} aparece no topo.</p><div class="fun-box">Logo, o ${faceToken('OCTAGON', 'red')} também não é oposto à ${faceToken('STAR8', 'blue')}.</div>`, highlights:[[1, SIDES.FRONT, 0x4285f4], [1, SIDES.TOP, 0xea4335]] },
+{ title:'3. Observando o cubo da direita', cam:isometricCam, orbit:false, html:`<p>No cubinho da direita, a ${faceToken('STAR8', 'blue')} aparece em uma face lateral e o ${faceToken('DIAMOND', 'red')} aparece no topo.</p><div class="fun-box">Portanto, o ${faceToken('DIAMOND', 'red')} também não é oposto à ${faceToken('STAR8', 'blue')}.</div>`, highlights:[[3, SIDES.RIGHT, 0x4285f4], [3, SIDES.TOP, 0xea4335]] },
+{ title:'4. Primeiro par oposto', cam:isometricCam, orbit:false, html:`<p>Com as observações anteriores, concluímos que as faces opostas à ${faceToken('STAR8', 'blue')} não são a face circular, nem o quadrado deitado, nem o octógono, nem o quadrado em pé.</p><div class="fun-box">Assim, a face oposta à ${faceToken('STAR8', 'blue')} é a ${faceToken('STAR4', 'green')}.</div>`, highlights:[[0, SIDES.TOP, 0x34a853], [1, SIDES.FRONT, 0x34a853], [3, SIDES.RIGHT, 0x34a853]] },
 { title:'5. Os outros pares', cam:isometricCam, orbit:false, html:`<p>Girando o cubinho de cima no sentido horário, em torno da ${faceToken('STAR8', 'blue')} na face superior, vamos obter uma das seguintes sequências de faces:</p>
         <div class="face-sequence">
             <span>1.</span>
@@ -154,13 +217,13 @@ const stepData = [
             ${faceToken('DIAMOND', 'neutral', 23)}
         </div>
         <div class="fun-box">Logo, a face oposta ao ${faceToken('CIRCLE', 'green')} é o ${faceToken('OCTAGON', 'green')}, e a face oposta ao ${faceToken('SQUARE', 'green')} é o ${faceToken('DIAMOND', 'green')}, e vice-versa.</div>`, highlights:[[0, SIDES.FRONT, 0x34a853], [0, SIDES.RIGHT, 0x34a853]] },
-{ title:'6. Analisando a alternativa C', cam:isometricCam, orbit:false, html:`${alternativeFigure('C', 'STAR4', 'CIRCLE', 'SQUARE', false, 'A figura da alternativa C')}<p>A imagem do item <strong>C</strong> não pode ser a da foto tirada.</p><div class="opt-card"><strong>Justificativa:</strong> a ${faceToken('STAR4', 'neutral')} é oposta à ${faceToken('STAR8', 'neutral')}, e não pode aparecer no cubinho de cima.</div>`, highlights:[] },
-{ title:'7. Analisando a alternativa B', cam:isometricCam, orbit:false, html:`${alternativeFigure('B', 'OCTAGON', 'SQUARE', 'STAR4', false, 'A figura da alternativa B')}<p>A imagem do item <strong>B</strong> não pode ser a da foto tirada.</p><div class="opt-card"><strong>Justificativa:</strong> se fosse, então a foto seria do lado oposto à face do ${faceToken('CIRCLE', 'neutral')} no cubinho de cima. Daí, no cubinho da esquerda, a face superior seria o ${faceToken('DIAMOND', 'neutral')} e a face frontal o ${faceToken('SQUARE', 'neutral')}, contrariando o fato de essas faces serem opostas.</div>`, highlights:[] },
-{ title:'8. Analisando a alternativa A', cam:isometricCam, orbit:false, html:`${alternativeFigure('A', 'OCTAGON', 'STAR4', 'STAR8', false, 'A figura da alternativa A')}<p>A imagem do item <strong>A</strong> não pode ser a da foto tirada.</p><div class="opt-card"><strong>Justificativa:</strong> se fosse, então a foto seria do lado oposto à face do ${faceToken('CIRCLE', 'neutral')} no cubinho de cima. Daí, no cubinho da esquerda, a face frontal seria a ${faceToken('STAR4', 'neutral')} e a lateral esquerda a ${faceToken('STAR8', 'neutral')}, contrariando o fato de essas faces serem opostas.</div>`, highlights:[] },
-{ title:'9. Analisando a alternativa E', cam:isometricCam, orbit:false, html:`${alternativeFigure('E', 'DIAMOND', 'CIRCLE', 'SQUARE', false, 'A figura da alternativa E')}<p>A imagem do item <strong>E</strong> não pode ser a da foto tirada.</p><div class="opt-card"><strong>Justificativa:</strong> se fosse, então a foto seria do lado oposto à face do ${faceToken('SQUARE', 'neutral')}. Daí, no cubinho da direita, a face frontal na foto seria o ${faceToken('SQUARE', 'neutral')}, a face lateral direita a ${faceToken('STAR8', 'neutral')} e a face superior o ${faceToken('OCTAGON', 'neutral')}; mas isso não pode acontecer, por uma questão de orientação, como nos mostra o cubinho de cima.</div>`, highlights:[] },
-{ title:'10. A fotografia correta', cam:[-6.0, 0.5, 0], orbit:true, html:`${alternativeFigure('D', 'DIAMOND', 'STAR4', 'DIAMOND', true, 'A figura da alternativa D')}<p>Finalmente, a imagem do item <strong>D</strong> pode ser a foto tirada.</p><p>A justificativa é que a foto é do lado oposto à face do ${faceToken('SQUARE', 'neutral')} no cubinho de cima. Daí, a face frontal do cubinho da esquerda pode ser qualquer uma; no cubinho da direita, a face frontal é o ${faceToken('DIAMOND', 'neutral')}, a lateral direita a ${faceToken('STAR8', 'neutral')} e a superior o ${faceToken('OCTAGON', 'neutral')}.</p><p>Essa configuração também acontece em todos os outros cubinhos visíveis na montagem.</p><div class="fun-box"><strong>Câmera desbloqueada.</strong> Clique e arraste a imagem com o mouse para conferir a vista da alternativa D.</div>`, highlights:[[0, SIDES.LEFT, 0x4285f4], [4, SIDES.LEFT, 0x4285f4], [1, SIDES.LEFT, 0x4285f4]] }
+{ title:'6. Analisando a Alternativa (C)', cam:isometricCam, orbit:false, html:`${alternativeFigure('C', 'STAR4', 'CIRCLE', 'SQUARE', false, 'A figura da alternativa C')}<p>A imagem do item <strong>C</strong> não pode ser a da foto tirada.</p><div class="opt-card"><strong>Justificativa:</strong> a ${faceToken('STAR4', 'neutral')} é oposta à ${faceToken('STAR8', 'neutral')}, e não pode aparecer no cubinho de cima.</div>`, highlights:[] },
+{ title:'7. Analisando a Alternativa (B)', cam:isometricCam, orbit:false, html:`${alternativeFigure('B', 'OCTAGON', 'SQUARE', 'STAR4', false, 'A figura da alternativa B')}<p>A imagem do item <strong>B</strong> não pode ser a da foto tirada.</p><div class="opt-card"><strong>Justificativa:</strong> se fosse, então a foto seria do lado oposto à face do ${faceToken('CIRCLE', 'neutral')} no cubinho de cima. Daí, no cubinho da esquerda, a face superior seria o ${faceToken('DIAMOND', 'neutral')} e a face frontal o ${faceToken('SQUARE', 'neutral')}, contrariando o fato de essas faces serem opostas.</div>`, highlights:[] },
+{ title:'8. Analisando a Alternativa (A)', cam:isometricCam, orbit:false, html:`${alternativeFigure('A', 'OCTAGON', 'STAR4', 'STAR8', false, 'A figura da alternativa A')}<p>A imagem do item <strong>A</strong> não pode ser a da foto tirada.</p><div class="opt-card"><strong>Justificativa:</strong> se fosse, então a foto seria do lado oposto à face do ${faceToken('CIRCLE', 'neutral')} no cubinho de cima. Daí, no cubinho da esquerda, a face frontal seria a ${faceToken('STAR4', 'neutral')} e a lateral esquerda a ${faceToken('STAR8', 'neutral')}, contrariando o fato de essas faces serem opostas.</div>`, highlights:[] },
+{ title:'9. Analisando a Alternativa (E)', cam:isometricCam, orbit:false, html:`${alternativeFigure('E', 'DIAMOND', 'CIRCLE', 'SQUARE', false, 'A figura da alternativa E')}<p>A imagem do item <strong>E</strong> não pode ser a da foto tirada.</p><div class="opt-card"><strong>Justificativa:</strong> se fosse, então a foto seria do lado oposto à face do ${faceToken('SQUARE', 'neutral')}. Daí, no cubinho da direita, a face frontal na foto seria o ${faceToken('SQUARE', 'neutral')}, a face lateral direita a ${faceToken('STAR8', 'neutral')} e a face superior o ${faceToken('OCTAGON', 'neutral')}; mas isso não pode acontecer, por uma questão de orientação, como nos mostra o cubinho de cima. Se nele a face frontal fosse o ${faceToken('SQUARE', 'neutral')} e a face lateral direita fosse a ${faceToken('STAR8', 'neutral')}, então a face superior seria o ${faceToken('CIRCLE', 'neutral')}.</div>`, highlights:[] },
+{ title:'10. A Fotografia (Alternativa D)', cam:[-6.0, 0.5, 0], orbit:true, html:`${alternativeFigure('D', 'DIAMOND', 'STAR4', 'DIAMOND', true, 'A figura da alternativa D')}<p>Finalmente, a imagem do item <strong>D</strong> pode ser a foto tirada.</p><p>A justificativa é que a foto é do lado oposto à face do ${faceToken('SQUARE', 'neutral')} no cubinho de cima. Daí, a face frontal do cubinho da esquerda pode ser qualquer uma; no cubinho da direita, a face frontal é o ${faceToken('DIAMOND', 'neutral')}, a lateral direita a ${faceToken('STAR8', 'neutral')} e a superior o ${faceToken('OCTAGON', 'neutral')}.</p><p>Essa configuração também acontece em todos os outros cubinhos visíveis na montagem.</p><div class="fun-box"><strong>Câmera desbloqueada.</strong> Clique e arraste a imagem com o mouse para conferir a vista da alternativa D.</div>`, highlights:[[0, SIDES.LEFT, 0x4285f4], [4, SIDES.LEFT, 0x4285f4], [1, SIDES.LEFT, 0x4285f4]] }
 ];
-function setStep(n){ currentStep = Math.max(0, Math.min(totalSteps - 1, n)); clearHighlights(); const d = stepData[currentStep]; document.getElementById('step-counter').innerText = `Passo ${currentStep + 1} de ${totalSteps}`; document.getElementById('step-title').innerHTML = d.title; document.getElementById('step-desc').innerHTML = d.html; document.querySelectorAll('canvas[data-face]').forEach(canvas => { const faceName = canvas.getAttribute('data-face'); if(FACES[faceName] !== undefined) drawFace(canvas.getContext('2d'), FACES[faceName], canvas.width); }); document.getElementById('progress-bar').style.width = ((currentStep / (totalSteps - 1)) * 100) + '%'; d.highlights.forEach(h => addHighlight(h[0], h[1], h[2])); document.getElementById('prevBtn').disabled = currentStep === 0; document.getElementById('nextBtn').disabled = currentStep === totalSteps - 1; controls.enableRotate = d.orbit; tweenCamera(...d.cam); }
+function setStep(n){ currentStep = Math.max(0, Math.min(totalSteps - 1, n)); clearHighlights(); const d = stepData[currentStep]; document.getElementById('step-counter').innerText = `Passo ${currentStep + 1} de ${totalSteps}`; document.getElementById('step-title').innerHTML = d.title; document.getElementById('step-desc').innerHTML = d.html; document.querySelectorAll('canvas[data-face]').forEach(canvas => { const faceName = canvas.getAttribute('data-face'); if(FACES[faceName] !== undefined) { drawFace(canvas.getContext('2d'), FACES[faceName], canvas.width); } }); document.getElementById('progress-bar').style.width = ((currentStep / (totalSteps - 1)) * 100) + '%'; d.highlights.forEach(h => addHighlight(h[0], h[1], h[2])); document.getElementById('prevBtn').disabled = currentStep === 0; document.getElementById('nextBtn').disabled = currentStep === totalSteps - 1; controls.enableRotate = d.orbit; tweenCamera(...d.cam); }
 function changeStep(delta){ setStep(currentStep + delta); }
 function tweenCamera(x, y, z){ const startPos = camera.position.clone(); const endPos = new THREE.Vector3(x, y, z); let progress = 0, duration = 60; function animateMove(){ progress++; const t = progress / duration; const ease = 1 - Math.pow(1 - t, 3); camera.position.lerpVectors(startPos, endPos, ease); controls.update(); if(progress < duration) requestAnimationFrame(animateMove); } animateMove(); }
 let pulseT = 0; function animate(){ requestAnimationFrame(animate); pulseT += 0.05; const pulse = 0.45 + Math.sin(pulseT) * 0.15; activeHighlights.forEach(m => m.material.opacity = pulse); controls.update(); renderer.render(scene, camera); } animate();
